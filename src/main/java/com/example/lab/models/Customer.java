@@ -1,6 +1,7 @@
 package com.example.lab.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +20,12 @@ public class Customer {
     @Column(name = "age")
     private int age;
 
+    @JsonIgnoreProperties("customer")
     @JsonBackReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
+    @JsonIgnoreProperties("customers")
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
