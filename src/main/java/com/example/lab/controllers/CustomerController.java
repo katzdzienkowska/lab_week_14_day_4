@@ -24,14 +24,14 @@ public class CustomerController {
             @RequestParam(required = false, name = "town") String town,
             @RequestParam(required = false, name = "age") Integer age
     ) {
-        if (name != null) {
-            return new ResponseEntity<>(customerRepository.findByCourseNameIgnoreCase(name), HttpStatus.OK);
+        if (age != null & town != null & name != null) {
+            return new ResponseEntity<>(customerRepository.findByAgeGreaterThanAndTownAndCourseNameIgnoreCase(age, town, name), HttpStatus.OK);
         }
         else if (town != null && name != null) {
             return new ResponseEntity<>(customerRepository.findByTownAndCourseNameIgnoreCase(town, name), HttpStatus.OK);
         }
-        else if (age != null & town != null & name != null) {
-            return new ResponseEntity<>(customerRepository.findByAgeGreaterThanAndTownAndCourseNameIgnoreCase(age, town, name), HttpStatus.OK);
+        else if (name != null) {
+            return new ResponseEntity<>(customerRepository.findByCourseNameIgnoreCase(name), HttpStatus.OK);
         }
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
     }
